@@ -27,6 +27,7 @@
   import 'bz-semantic-ui-form'
   import BzUploadPicture from 'bz-upload-picture'
   import BzSimditor from 'bz-simditor'
+  import toastr from 'toastr'
 
   import Vue from 'vue'
   import VueResource from 'vue-resource'
@@ -97,7 +98,7 @@
             if (this.save_call_back) this.save_call_back(this.title_img, this.title, this.summary, this.text, this.key)
           },
           (response) => {
-            throw new Error(response.statusText)
+            toastr.error(response.status)
           }
         )
       }
