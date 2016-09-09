@@ -5,7 +5,7 @@
 <form v-on:submit.prevent="save" class="ui form">
   <div class="field">
     <label>标题图片</label>
-    <bz-upload-picture :call_back="uploadPicture"></bz-upload-picture>
+    <bz-upload-picture :img_src="title_img" :call_back="uploadPicture"></bz-upload-picture>
   </div>
   <div class="required field">
     <label>标题</label>
@@ -63,6 +63,9 @@
       save_call_back: {
         type: Function,
         required: true
+      },
+      id: {
+        type: Number
       }
     },
     components: {
