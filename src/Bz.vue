@@ -107,7 +107,7 @@
         } else {
           parm.id = this.id
           parm = JSON.stringify(parm)
-          api_rich_text.put(parm).then(
+          api_rich_text.update(parm).then(
             (response) => {
               if (response.data.error !== '0') throw new Error(response.data.error)
               if (this.save_call_back) this.save_call_back(this.title_img, this.title, this.summary, this.text, this.key)
