@@ -38,8 +38,7 @@
     props: {
       title_img: {
         type: String,
-        twoWay: true,
-        default: ''
+        twoWay: true
       },
       title: {
         type: String,
