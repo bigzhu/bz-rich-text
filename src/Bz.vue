@@ -1,6 +1,3 @@
-<style lang=less>
-</style>
-
 <template>
   <form v-on:submit.prevent="save" class="ui form">
     <div class="field">
