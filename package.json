@@ -26,8 +26,6 @@
     "test": ""
   },
   "dependencies": {
-    "bz-simditor": "^2.0.2",
-    "bz-upload-picture": "^1.0.6"
   },
   "devDependencies": {
     "vue": "latest",
