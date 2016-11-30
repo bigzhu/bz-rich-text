@@ -1,6 +1,3 @@
-<style lang=less>
-</style>
-
 <template>
   <form v-on:submit.prevent="save" class="ui form">
     <div class="field">
@@ -24,7 +21,6 @@
 </template>
 
 <script>
-  import 'bz-semantic-ui-form'
   import BzUploadPicture from 'bz-upload-picture'
   import BzSimditor from 'bz-simditor'
   import toastr from 'toastr'
