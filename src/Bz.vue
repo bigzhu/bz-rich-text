@@ -2,7 +2,7 @@
   <form v-on:submit.prevent="save" class="ui form">
     <div class="field">
       <label>标题图片</label>
-      <bz-upload-picture :img_src="title_img" :call_back="uploadPicture"></bz-upload-picture>
+      <bz-upload-picture :img_src="title_img" @upload_done="uploadPicture"></bz-upload-picture>
     </div>
     <div class="required field">
       <label>标题</label>
@@ -23,45 +23,27 @@
 <script>
   import BzUploadPicture from 'bz-upload-picture'
   import BzSimditor from 'bz-simditor'
-  import toastr from 'toastr'
-
-  import Vue from 'vue'
-  import VueResource from 'vue-resource'
-  Vue.use(VueResource)
-  var api_rich_text = Vue.resource('/api_rich_text{/parm}')
+  import upload_picture from './assets/upload-picture.svg'
 
   export default {
     props: {
       title_img: {
-        type: String,
-        twoWay: true
+        type: String, default: upload_picture
       },
       title: {
-        type: String,
-        twoWay: true,
-        default: ''
+        type: String, default: ''
       },
       summary: {
-        type: String,
-        twoWay: true,
-        default: ''
+        type: String, default: ''
       },
       text: {
-        type: String,
-        twoWay: true,
-        default: ''
+        type: String, default: ''
       },
       key: {
-        type: String,
-        default: ''
-      },
-      save_call_back: {
-        type: Function,
-        required: true
+        type: String, required: true, default: ''
       },
       id: {
-        type: Number,
-        default: -1
+        type: Number, default: null
       }
     },
     components: {
@@ -76,43 +58,39 @@
     },
     methods: {
       uploadPicture: function (file_url) {
+        console.log(file_url)
         this.title_img = file_url
       },
       save: function () {
-        if (this.title === '') throw new Error('请填入标题!')
-        if (this.content === '') throw new Error('请填入内容!')
+        if (this.title === '') { throw new Error('请填入标题!') }
+        if (this.content === '') { throw new Error('请填入内容!') }
 
         var parm = {
+          id: this.id,
           title: this.title,
           title_img: this.title_img,
           summary: this.summary,
           text: this.text,
           key: this.key
         }
-        if (this.id === -1) {
-          parm = JSON.stringify(parm)
-          api_rich_text.save(parm).then(
-            (response) => {
-              if (response.data.error !== '0') throw new Error(response.data.error)
-              if (this.save_call_back) this.save_call_back(this.title_img, this.title, this.summary, this.text, this.key)
-            },
-            (response) => {
-              toastr.error(response.status)
-            }
-          )
-        } else {
-          parm.id = this.id
-          parm = JSON.stringify(parm)
-          api_rich_text.update(parm).then(
-            (response) => {
-              if (response.data.error !== '0') throw new Error(response.data.error)
-              if (this.save_call_back) this.save_call_back(this.title_img, this.title, this.summary, this.text, this.key)
-            },
-            (response) => {
-              toastr.error(response.status)
-            }
-          )
-        }
+
+        return window.fetch('/api_rich_text', {
+          credentials: 'same-origin',
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(parm)
+        })
+        .then(function (response) {
+          return response.json()
+        }).then(function (data) {
+          if (data.error !== '0') {
+            throw new Error(data.error)
+          }
+          this.$emit('saved', {title_img: this.title_img, title: this.title, summary: this.summary, text: this.text, key: this.key})
+        })
       }
     }
   }
