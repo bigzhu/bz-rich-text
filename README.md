@@ -1,6 +1,6 @@
-# bz-base
+# bz-rich-text
 
-> bz-base
+> bz-rich-text
 
 ## Build Setup
 

@@ -6,7 +6,7 @@
       :parms="parms"
       :code="code"
       >
-      <bz key="test" @save="call_back"></bz>
+      <bz v-model="rich" @save="call_back"></bz>
     </doc>
   </div>
 </template>
@@ -28,13 +28,14 @@
     data: function () {
       return {
         datas: [1],
+        rich: {},
         name: 'bz-rich-text',
         desc: '拉到底部加载',
         parms: [
           {parm: '@call_back', desc: '保存时的触发'}
         ],
         parm_desc: `注意，如果使用的组件有路由，那么最好在切换路由的时候发送消息，解除绑定(参看本例子) <code>this.$broadcast('unbind-scroll')</code>`,
-        code: `<bz @save="call_back"></bz>`
+        code: `<bz v-model="rich" @save="call_back"></bz>`
       }
     },
     methods: {
