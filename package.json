@@ -1,6 +1,6 @@
 {
   "name": "bz-rich-text",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "bz-rich-text",
   "main": "src/Bz.vue",
   "keywords": [
@@ -26,8 +26,7 @@
     "build": "node build/pack.js",
     "test": ""
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "vue": "latest",
     "autoprefixer": "^6.5.0",
