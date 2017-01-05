@@ -16,6 +16,10 @@
       <label>内容</label>
       <bz-simditor v-model="value.text"></bz-simditor>
     </div>
+    <div class="required field">
+      <label>key</label>
+      <input v-model="value.key" type="text" name="title" placeholder="key">
+    </div>
     <button class="ui button" type="submit">保存</button>
   </form>
 </template>
@@ -23,7 +27,6 @@
 <script>
   import BzUploadPicture from 'bz-upload-picture'
   import BzSimditor from 'bz-simditor'
-  // import upload_picture from './assets/upload-picture.svg'
 
   export default {
     props: {
@@ -38,17 +41,7 @@
     },
     data: function () {
       return {
-        rich: {
-          title_img: null,
-          title: null,
-          summary: null,
-          text: null,
-          key: null,
-          id: null
-        }
       }
-    },
-    ready () {
     },
     methods: {
       uploadPicture: function (file_url) {
@@ -59,7 +52,7 @@
         if (this.title === '') { throw new Error('请填入标题!') }
         if (this.content === '') { throw new Error('请填入内容!') }
 
-        var parm = this.value
+        let parm = this.value
 
         return window.fetch('/api_rich_text', {
           credentials: 'same-origin',
