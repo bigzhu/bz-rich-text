@@ -50,10 +50,10 @@
       save: function () {
         let self = this
         let method = 'post'
-        if (this.title === '') { throw new Error('请填入标题!') }
-        if (this.content === '') { throw new Error('请填入内容!') }
+        if (!this.value.title) { throw new Error('请填入标题!') }
+        if (!this.value.content) { throw new Error('请填入内容!') }
 
-        if (this.id) { // 如果有id,就put来修改
+        if (this.value.id) { // 如果有id,就put来修改
           method = 'put'
         }
 
