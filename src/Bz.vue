@@ -49,14 +49,19 @@
       },
       save: function () {
         let self = this
+        let method = 'post'
         if (this.title === '') { throw new Error('请填入标题!') }
         if (this.content === '') { throw new Error('请填入内容!') }
+
+        if (this.id) { // 如果有id,就put来修改
+          method = 'put'
+        }
 
         let parm = this.value
 
         return window.fetch('/api_rich_text', {
           credentials: 'same-origin',
-          method: 'post',
+          method: method,
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
